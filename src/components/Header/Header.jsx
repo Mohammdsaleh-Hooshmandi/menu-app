@@ -11,12 +11,14 @@ const HeaderWrapper = styled.header`
     background-size: cover;
 `;
 
-const Header = () => {
+const Header = props => {
 
     return (
         <Fragment>
             <HeaderWrapper />
-            <Navbar></Navbar>
+            <Navbar>
+                <button onClick={props.onOpen}>open</button>
+            </Navbar>
         </Fragment>
     );
 };
