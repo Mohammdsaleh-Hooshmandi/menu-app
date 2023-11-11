@@ -1,5 +1,6 @@
 import { Fragment } from "react";
 import GlobalStyle from "./components/Common/GlobalStyles";
+import Header from "./components/Header/Header";
 
 
 
@@ -7,7 +8,8 @@ const App = () => {
 	return (
 		<Fragment>
 			<GlobalStyle />
-			<h1>React.js</h1>
+			<Header />
+			<h1 style={{ marginTop: '100vh' }}>React.js</h1>
 		</Fragment>
 	);
 }
