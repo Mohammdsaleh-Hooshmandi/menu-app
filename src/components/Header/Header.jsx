@@ -1,5 +1,7 @@
+import { Fragment } from "react";
 import styled from "styled-components";
 import bgImage from './bg-header.jpg';
+import { Navbar } from "./Navbar";
 
 const HeaderWrapper = styled.header`
     width: 100%;
@@ -12,7 +14,10 @@ const HeaderWrapper = styled.header`
 const Header = () => {
 
     return (
-        <HeaderWrapper>header</HeaderWrapper>
+        <Fragment>
+            <HeaderWrapper />
+            <Navbar></Navbar>
+        </Fragment>
     );
 };
 

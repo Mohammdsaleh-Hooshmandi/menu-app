@@ -9,7 +9,7 @@ const App = () => {
 		<Fragment>
 			<GlobalStyle />
 			<Header />
-			<h1 style={{ marginTop: '100vh' }}>React.js</h1>
+			<h1 style={{ marginTop: '200vh' }}>React.js</h1>
 		</Fragment>
 	);
 }
