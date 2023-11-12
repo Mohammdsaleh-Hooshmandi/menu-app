@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import HeaderOrderBtn from "./HeaderOrderBtn";
 
-export const Navbar = styled.nav`
+const NavbarWrapper = styled.nav`
     width: 100%;
     height: 8rem;
     position: sticky;
@@ -10,4 +11,60 @@ export const Navbar = styled.nav`
     align-items: center;
     justify-content: space-between;
     padding: 0 3%;
+    overflow-y: auto;
+
+    > ul {
+        display: flex;
+        color: #fff;
+        gap: 3rem;
+        align-items: center;
+    }
 `;
+
+const NavbarLink = styled.a`
+    display: inline-block;
+    font-size: 1.6rem;
+    letter-spacing: .1rem;
+    font-weight: 600;
+    width: 12rem;
+    height: 3rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    color: #fff;
+    border: .1rem solid rgb(232, 126, 75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover,
+    &:active {
+        background-color: rgb(232, 126, 75);
+    }
+`;
+
+const Navbar = props => {
+
+    return (
+        <NavbarWrapper>
+            <ul>
+                <li>
+                    <HeaderOrderBtn onClick={props.onOpenList}>Your Order</HeaderOrderBtn>
+                </li>
+
+                <li>
+                    <NavbarLink>appetizers</NavbarLink>
+                </li>
+
+                <li>
+                    <NavbarLink>main courses</NavbarLink>
+                </li>
+
+                <li>
+                    <NavbarLink>desserts</NavbarLink>
+                </li>
+            </ul>
+        </NavbarWrapper>
+    );
+};
+
+export default Navbar;
