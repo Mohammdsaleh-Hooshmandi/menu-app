@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import Button from "../Common/Button";
+import ListContext from "../../store/list-context";
 
 const showAnimation = keyframes`
     from {
@@ -64,13 +66,15 @@ const ListItems = styled.ul`
 `;
 
 const List = props => {
+    const orderedFoods = useContext(ListContext);
+    console.log(orderedFoods)
 
     return (
         <Wrapper>
             <Button onClick={props.onClose}>close</Button>
 
             <div className='actions'>
-                <p>Total Amount: <span>${320}</span></p>
+                <p>Total Amount: <span>${orderedFoods.totalAmount}</span></p>
                 <button>Order</button>
             </div>
 
