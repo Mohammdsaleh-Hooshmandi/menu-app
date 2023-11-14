@@ -35,6 +35,7 @@ const NavbarLink = styled.a`
     display: flex;
     align-items: center;
     justify-content: center;
+    text-decoration: none;
 
     &:hover,
     &:active {
@@ -52,15 +53,19 @@ const Navbar = props => {
                 </li>
 
                 <li>
-                    <NavbarLink>appetizers</NavbarLink>
+                    <NavbarLink href="#snake">Snakes</NavbarLink>
                 </li>
 
                 <li>
-                    <NavbarLink>main courses</NavbarLink>
+                    <NavbarLink href="#lunch">Lunch</NavbarLink>
                 </li>
 
                 <li>
-                    <NavbarLink>desserts</NavbarLink>
+                    <NavbarLink href="#dinner">Dinner</NavbarLink>
+                </li>
+
+                <li>
+                    <NavbarLink href="#breakfast">Breakfast</NavbarLink>
                 </li>
             </ul>
         </NavbarWrapper>

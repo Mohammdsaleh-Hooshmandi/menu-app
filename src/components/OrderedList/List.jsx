@@ -2,6 +2,7 @@ import { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import Button from "../Common/Button";
 import ListContext from "../../store/list-context";
+import Item from "./Item";
 
 const showAnimation = keyframes`
     from {
@@ -25,6 +26,10 @@ const Wrapper = styled.div`
     animation: ${showAnimation} linear .5s;
     overflow-x: hidden;
 
+    .btn-wrapper {
+        text-align: right;
+    }
+
     .actions {
         display: flex;
         flex-direction: column;
@@ -33,52 +38,76 @@ const Wrapper = styled.div`
         margin-top: 1rem;
         width: 100%;
         border: .1rem solid #eee;
-        height: 10%;
+        height: 8rem;
         border-radius: 1rem;
         color: #fff;
         padding: .5rem 0;
         overflow: hidden;
 
-        > p {
-            font-size: 1.6rem;
-        }
+        
+    }
 
-        > button {
-            font-size: 1.6rem;
-            letter-spacing: .1rem;
-            font-weight: 600;
-            width: 80%;
-            height: 3rem;
-            border-radius: 1rem;
-            cursor: pointer;
-            background-color: rgb(232, 126, 75);
-            color: #fff;
-        }
+    .total-amount {
+        font-size: 1.6rem;
+    }
+
+    .items-list {
+        width: 100%;
+        height: 80%;
+        margin-top: 1rem;
+        border-radius: 1rem;
+        border: .1rem solid #eee;
+        overflow-y: auto;
+    }
+
+    .message {
+        width: 100%;
+        text-align: center;
+        color: #fff;
+        font-size: 1.6rem;
+        margin-top: 2rem;
     }
 `;
 
-const ListItems = styled.ul`
-    width: 100%;
-    height: 80%;
-    margin-top: 1rem;
-    border-radius: 1rem;
-    border: .1rem solid #eee;
+const OrederButton = styled(Button)`
+    width: 80%;
+    font-size: 1.6rem;
+
+    &:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+    }
 `;
 
 const List = props => {
-    const orderedFoods = useContext(ListContext);
-    console.log(orderedFoods)
+    const { foods, totalPrice } = useContext(ListContext);
+
+    const sendOrederList = () => {
+        console.log('Sending....');
+        console.log({ foods });
+    };
 
     return (
         <Wrapper>
-            <Button onClick={props.onClose}>close</Button>
-
-            <div className='actions'>
-                <p>Total Amount: <span>${orderedFoods.totalAmount}</span></p>
-                <button>Order</button>
+            <div className='btn-wrapper'>
+                <Button onClick={props.onClose}>
+                    <i className="fa-solid fa-xmark" />
+                </Button>
             </div>
 
-            <ListItems></ListItems>
+            <div className='actions'>
+                <p className='total-amount'>Total Price: <span>${totalPrice}</span></p>
+                <OrederButton disabled={!Boolean(foods.length)} onClick={sendOrederList}>Order</OrederButton>
+            </div>
+
+            <ul className='items-list'>
+                {
+                    foods.length === 0 && <p className='message'>You Dont't choose any food</p>
+                }
+                {
+                    foods.length > 0 && foods.map(food => <Item key={food.id} id={food.id} name={food.name} amount={food.amount} />)
+                }
+            </ul>
         </Wrapper>
     );
 };

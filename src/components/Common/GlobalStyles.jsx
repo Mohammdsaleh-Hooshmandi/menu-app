@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     html {
         font-size: 62.5%;
         font-family: 'Nunito', sans-serif;
+        scroll-behavior: smooth;
     }
 `;
 

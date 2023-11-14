@@ -2,30 +2,72 @@ import { createContext, useReducer } from "react";
 
 const ListContext = createContext({
     foods: [],
-    totalAmount: 0,
+    totalPrice: 0,
     addFood: food => { },
     removeFood: id => { },
+    changeAmount: (id, amount) => { },
 });
 
 const reducer = (state, action) => {
-    return { foods: [], totalAmount: 0 }
+    if (action.type === 'REMOVE') {
+        const newFoods = state.foods.filter(food => food.id !== action.id);
+        const newTotalPrice = newFoods.length ? newFoods.map(food => food.price * food.amount).reduce((curr, acc) => curr + acc) : 0;
+
+        return { foods: newFoods, totalPrice: newTotalPrice };
+    }
+
+    if (action.type === 'ADD') {
+        const isExistFood = state.foods.find(food => food.id === action.newFood.id);
+
+        if (isExistFood) {
+            const newAmount = isExistFood.amount + action.newFood.amount;
+            const updateExsitFood = { ...isExistFood, amount: newAmount };
+            const newFoods = [
+                ...state.foods.filter(food => food.id !== isExistFood.id),
+                updateExsitFood
+            ];
+            const newTotalPrice = newFoods.map(food => food.price * food.amount).reduce((curr, acc) => curr + acc)
+
+            return { foods: newFoods, totalPrice: newTotalPrice };
+        }
+
+        const newFoods = [...state.foods, action.newFood];
+        const newTotalPrice = newFoods.map(food => food.price * food.amount).reduce((curr, acc) => curr + acc)
+
+        return { foods: newFoods, totalPrice: newTotalPrice };
+    }
+
+    if (action.type === 'CHANGE_AMOUNT') {
+        const updateExsitFood = { ...state.foods.find(food => food.id === action.id), amount: action.changedAmount };
+        const newFoods = [
+            ...state.foods.filter(food => food.id !== action.id),
+            updateExsitFood
+        ];
+        const newTotalPrice = newFoods.map(food => food.price * food.amount).reduce((curr, acc) => curr + acc);
+        return { foods: newFoods, totalPrice: newTotalPrice };
+    }
+    return { foods: [], totalPrice: 0 }
 };
 
 const ListContextProvider = ({ children }) => {
-    const [orderedFoods, dispatchOrderedFoods] = useReducer(reducer, { foods: [], totalAmount: 0 });
+    const [orderedFoods, dispatchOrderedFoods] = useReducer(reducer, { foods: [], totalPrice: 0 });
 
     const addFoodHandler = food => {
-        dispatchOrderedFoods({ type: 'ADD', newFood: food })
+        dispatchOrderedFoods({ type: 'ADD', newFood: food });
     };
     const removeFoodHandler = id => {
-        dispatchOrderedFoods({ type: 'REMOVE', id: id })
+        dispatchOrderedFoods({ type: 'REMOVE', id: id });
+    };
+    const changeFoodAmountHandler = (id, amount) => {
+        dispatchOrderedFoods({ type: 'CHANGE_AMOUNT', id: id, changedAmount: amount });
     };
 
     const contextValue = {
         foods: orderedFoods.foods,
-        totalAmount: orderedFoods.totalAmount,
+        totalPrice: orderedFoods.totalPrice,
         addFood: addFoodHandler,
         removeFood: removeFoodHandler,
+        changeAmount: changeFoodAmountHandler,
     };
 
     return (
