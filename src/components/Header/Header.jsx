@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import styled from "styled-components";
 import bgImage from './bg-header.jpg';
 import Navbar from "./Navbar";
+import SearchBar from "./SerachBar";
 
 
 const HeaderWrapper = styled.header`
@@ -16,6 +17,7 @@ const Header = props => {
 
     return (
         <Fragment>
+            <SearchBar />
             <HeaderWrapper />
             <Navbar onOpenList={props.onOpen} />
         </Fragment>
