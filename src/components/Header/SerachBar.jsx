@@ -6,7 +6,7 @@ const Wrapper = styled.div`
     position: fixed;
     top: 2rem;
     right: 2rem;
-    z-index: 5;
+    z-index: 2;
     display: flex;
 
     .bar {
