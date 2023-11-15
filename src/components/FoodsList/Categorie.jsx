@@ -38,15 +38,22 @@ const Wrapper = styled.section`
     
 `;
 
-const Categorie = props => {
+const Message = styled.p`
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+`;
 
+const Categorie = props => {
     return (
         <Wrapper id={props.id}>
             <h2 className='categorie-name'>{props.categorie}</h2>
 
-            <ul className='foods-list'>
+            {props.items.length > 0 && <ul className='foods-list'>
                 {props.items.map(item => <CategorieItem name={item.name} id={item.id} key={item.id} price={item.price} description={item.description} img={item.img} />)}
-            </ul>
+            </ul>}
+
+            {props.items.length < 1 && <Message>Food Not Fount in {props.categorie} Categorie</Message>}
         </Wrapper>
     );
 };

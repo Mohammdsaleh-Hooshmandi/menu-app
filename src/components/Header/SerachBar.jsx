@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "../Common/Button";
 
@@ -43,7 +43,7 @@ const Wrapper = styled.div`
     }
 `;
 
-const SearchBar = () => {
+const SearchBar = props => {
     const [isOpen, setIsOpen] = useState(false);
     const [enteredFood, setEnteredName] = useState('');
 
@@ -56,6 +56,14 @@ const SearchBar = () => {
     const inputChangeHandler = event => {
         setEnteredName(event.target.value);
     };
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            props.onSearch(enteredFood.toLowerCase());
+        }, 500);
+
+        return () => { clearTimeout(timer) };
+    }, [enteredFood]);
 
     return (
         <Wrapper>

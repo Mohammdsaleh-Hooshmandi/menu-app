@@ -11,12 +11,16 @@ import { ListContextProvider } from "./store/list-context";
 
 const App = () => {
 	const [showList, setShowList] = useState(false);
+	const [enteredFoodName, setEnteredFoodName] = useState('');
 
 	const openListHandler = () => {
 		setShowList(true);
 	};
 	const closeListHandler = () => {
 		setShowList(false);
+	};
+	const searchFoodHandler = foodName => {
+		setEnteredFoodName(foodName);
 	};
 
 	return (
@@ -25,8 +29,8 @@ const App = () => {
 			<ListContextProvider>
 				{showList && createPortal(<BackDrop onClick={closeListHandler} onClose={closeListHandler} />, document.getElementById('backdrop-root'))}
 				{showList && createPortal(<List onClose={closeListHandler} />, document.getElementById('list-root'))}
-				<Header onOpen={openListHandler} />
-				<Menu />
+				<Header onSearch={searchFoodHandler} onOpen={openListHandler} />
+				<Menu searchedName={enteredFoodName} />
 			</ListContextProvider>
 		</Fragment>
 	);

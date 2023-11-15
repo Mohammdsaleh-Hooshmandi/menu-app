@@ -7,14 +7,18 @@ const Wrapper = styled.main`
     width: 100%;
 `;
 
-const Menu = () => {
+const Menu = props => {
+    const filteredSankes = snacks.filter(food => food.name.toLowerCase().includes(props.searchedName));
+    const filteredLunch = lunch.filter(food => food.name.toLowerCase().includes(props.searchedName));
+    const filteredDinner = dinner.filter(food => food.name.toLowerCase().includes(props.searchedName));
+    const filteredBreakfast = breakfast.filter(food => food.name.toLowerCase().includes(props.searchedName));
 
     return (
         <Wrapper>
-            <Categorie id='snake' categorie='Snakes' items={snacks} />
-            <Categorie id='lunch' categorie='Lunch' items={lunch} />
-            <Categorie id='dinner' categorie='Dinner' items={dinner} />
-            <Categorie id='breakfast' categorie='Breakfast' items={breakfast} />
+            <Categorie id='snake' categorie='Snakes' items={filteredSankes} />
+            <Categorie id='lunch' categorie='Lunch' items={filteredLunch} />
+            <Categorie id='dinner' categorie='Dinner' items={filteredDinner} />
+            <Categorie id='breakfast' categorie='Breakfast' items={filteredBreakfast} />
         </Wrapper>
     );
 };

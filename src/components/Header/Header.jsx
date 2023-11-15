@@ -17,7 +17,7 @@ const Header = props => {
 
     return (
         <Fragment>
-            <SearchBar />
+            <SearchBar onSearch={props.onSearch} />
             <HeaderWrapper />
             <Navbar onOpenList={props.onOpen} />
         </Fragment>
