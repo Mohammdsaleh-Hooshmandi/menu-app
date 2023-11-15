@@ -60,7 +60,7 @@ const CategorieItem = props => {
             {isOpen && createPortal(<BackDrop onClick={closeCartHandler} />, document.getElementById('backdrop-root'))}
             {isOpen && createPortal(<Card onClose={closeCartHandler} {...props} />, document.getElementById('card-root'))}
             <Wrapper onClick={openCartHandler}>
-                <img className='food-image' src={props.img} alt="ggggg" />
+                <img className='food-image' src={props.img} alt="food" />
                 <div className='contents-wrapper'>
                     <h2>{props.name}</h2>
 
