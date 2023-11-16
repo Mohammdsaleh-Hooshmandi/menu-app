@@ -19,7 +19,7 @@ const Header = props => {
         <Fragment>
             <SearchBar onSearch={props.onSearch} />
             <HeaderWrapper />
-            <Navbar onOpenList={props.onOpen} />
+            <Navbar onOpenList={props.onOpen} onSearch={props.onSearch} />
         </Fragment>
     );
 };

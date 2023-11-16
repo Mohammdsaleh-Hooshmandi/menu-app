@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import HeaderOrderBtn from "./HeaderOrderBtn";
+import SearchBar from "./SerachBar";
 
 const NavbarWrapper = styled.nav`
     width: 100%;
@@ -66,6 +67,10 @@ const Navbar = props => {
 
                 <li>
                     <NavbarLink href="#breakfast">Breakfast</NavbarLink>
+                </li>
+
+                <li>
+                    <SearchBar smallScreen={true} onSearch={props.onSearch} />
                 </li>
             </ul>
         </NavbarWrapper>

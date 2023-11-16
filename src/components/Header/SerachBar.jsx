@@ -1,28 +1,40 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import Button from "../Common/Button";
 
+const barAnimation = keyframes`
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 28rem;
+    }
+`;
+
 const Wrapper = styled.div`
+    ${props => props.$smallScreen ?
+        css`
+        display: none;`
+        :
+        css`  
     position: fixed;
     top: 2rem;
     right: 2rem;
     z-index: 2;
-    display: flex;
+    display: flex;`
+    }
 
     .bar {
         display: flex;
         align-items: center;
         background-color: #111;
         height: 4rem;
-        width: 0;
+        width: 28rem;
         overflow: hidden;
         border-radius: 1rem;
-    }
-
-    .bar.open {
-        width: 28rem;
-        transition: width .3s linear;
         border: .1rem solid rgba(232, 125, 75, 1);
+        animation: ${barAnimation} .3s linear;
     }
 
     .close-btn {
@@ -41,6 +53,10 @@ const Wrapper = styled.div`
         color: rgba(232, 125, 75, 1);
         font-size: 2rem;
     }
+
+    @media (max-width: 1100px) {
+        display: ${props => props.$smallScreen ? 'initial' : 'none'};
+    }
 `;
 
 const SearchBar = props => {
@@ -52,6 +68,7 @@ const SearchBar = props => {
     };
     const closeBarHandler = () => {
         setIsOpen(false);
+        setEnteredName('');
     };
     const inputChangeHandler = event => {
         setEnteredName(event.target.value);
@@ -66,8 +83,8 @@ const SearchBar = props => {
     }, [enteredFood]);
 
     return (
-        <Wrapper>
-            <div className={`bar ${isOpen && 'open'}`}>
+        <Wrapper $smallScreen={props.smallScreen}>
+            {isOpen && <div className='bar'>
                 <button className='close-btn' onClick={closeBarHandler}>
                     <i className="fa-solid fa-xmark" />
                 </button>
@@ -79,7 +96,7 @@ const SearchBar = props => {
                     value={enteredFood}
                     onChange={inputChangeHandler}
                 />
-            </div>
+            </div>}
 
             {!isOpen && <Button onClick={openBarHandler}>
                 <i className="fa-solid fa-magnifying-glass" />
