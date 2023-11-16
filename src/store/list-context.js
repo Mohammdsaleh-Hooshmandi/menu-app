@@ -11,7 +11,7 @@ const ListContext = createContext({
 const reducer = (state, action) => {
     if (action.type === 'REMOVE') {
         const newFoods = state.foods.filter(food => food.id !== action.id);
-        const newTotalPrice = newFoods.length ? newFoods.map(food => food.price * food.amount).reduce((curr, acc) => curr + acc) : 0;
+        const newTotalPrice = newFoods.map(food => food.price * food.amount).reduce((curr, acc) => curr + acc, 0);
 
         return { foods: newFoods, totalPrice: newTotalPrice };
     }
@@ -38,15 +38,14 @@ const reducer = (state, action) => {
     }
 
     if (action.type === 'CHANGE_AMOUNT') {
-        const updateExsitFood = { ...state.foods.find(food => food.id === action.id), amount: action.changedAmount };
-        const newFoods = [
-            ...state.foods.filter(food => food.id !== action.id),
-            updateExsitFood
-        ];
+        const foodIndex = state.foods.findIndex(food => food.id === action.id);
+        state.foods[foodIndex].amount = action.changedAmount;
+
+        const newFoods = [...state.foods];
         const newTotalPrice = newFoods.map(food => food.price * food.amount).reduce((curr, acc) => curr + acc);
         return { foods: newFoods, totalPrice: newTotalPrice };
     }
-    return { foods: [], totalPrice: 0 }
+    return { foods: [], totalPrice: 0 };
 };
 
 const ListContextProvider = ({ children }) => {
